@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: build
+  displayName: build
+  jobs:
+  - job: build
+    steps:
+    - bash: echo $(Build.ArtifactStagingDirectory)
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: 'public'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/public.zip'
+        replaceExistingArchive: true
+
+    - bash: ls $(Build.ArtifactStagingDirectory)
+
+    - bash: ls $(Build.SourcesDirectory)
+
+    - bash: pwd
+
+    - bash: ls .
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/public.zip'
