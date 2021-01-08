@@ -33,8 +33,8 @@ stages:
 
     - bash: ls .
 
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish Artifact: drop'
+    - task: PublishBuildArtifacts@1
       inputs:
-        pathToPublish: '$(Build.ArtifactStagingDirectory)/public.zip'
-        artifactName: drop
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
