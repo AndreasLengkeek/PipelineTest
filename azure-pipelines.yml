@@ -36,4 +36,5 @@ stages:
     - task: PublishPipelineArtifact@1
       displayName: 'Publish Artifact: drop'
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/public.zip'
+        pathToPublish: '$(Build.ArtifactStagingDirectory)/public.zip'
+        artifactName: drop
